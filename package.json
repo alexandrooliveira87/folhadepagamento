@@ -1,0 +1,13 @@
+{
+  "name": "folhadepagamento",
+  "version": "1.0.0",
+  "description": "[M2S01] Roteiro: projeto 'folha de pagamento'",
+  "main": "index.js",
+  "scripts": {
+    "start": "index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
