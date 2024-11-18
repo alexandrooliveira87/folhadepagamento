@@ -136,3 +136,39 @@ const salarioBruto3 = 8000;
 console.log(`Salário Bruto: R$ ${salarioBruto3}`);
 console.log(`INSS: R$ ${calcularInss(salarioBruto3)}`);
 console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto3)}`);
+
+console.log("======================================="); // Exibe um separador no console
+console.log("[M2S01] Ex 6 - Relatório de Pagamento");
+console.log("=======================================");
+
+// Função para gerar o relatório de pagamento
+function gerarRelatorioPagamento() {
+    console.log("===== RELATÓRIO DE PAGAMENTO =====\n");
+
+    // Percorre o array de funcionários
+    funcionarios.forEach(funcionario => {
+        // Soma as horas trabalhadas
+        const totalHoras = funcionario.horasTrabalhadas.reduce((total, horas) => total + horas, 0);
+
+        // Calcula o salário bruto
+        const salarioBruto = totalHoras * funcionario.taxaHoraria;
+
+        // Calcula o INSS
+        const valorInss = calcularInss(salarioBruto);
+
+        // Calcula o salário líquido
+        const salarioLiquido = salarioBruto - valorInss;
+
+        // Formata e exibe as informações do funcionário
+        console.log(`Nome: ${funcionario.nome}`);
+        console.log(`Cargo: ${funcionario.cargo}`);
+        console.log(`Total de Horas: ${totalHoras}`);
+        console.log(`Valor do INSS: R$ ${valorInss}`);
+        console.log(`Salário Bruto: R$ ${salarioBruto.toFixed(2)}`);
+        console.log(`Salário Líquido: R$ ${salarioLiquido.toFixed(2)}`);
+        console.log("-----------------------------\n");
+    });
+}
+
+// Teste: Gerar o relatório de pagamento
+gerarRelatorioPagamento();
