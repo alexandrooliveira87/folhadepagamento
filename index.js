@@ -1,8 +1,6 @@
+const readline = require('readline-sync');
 
-console.log("======================================="); // Exibe um separador no console
-console.log("[M2S01] Ex 2 - Cadastro de Funcionários");
-console.log("=======================================");
-// Definindo o array para armazenar a lista de funcionários
+// Array para armazenar os funcionários
 let funcionarios = [];
 
 // Função para adicionar um funcionário ao array
@@ -14,88 +12,22 @@ function adicionarFuncionario(id, nome, cargo, taxaHoraria) {
         taxaHoraria: taxaHoraria,
         horasTrabalhadas: [] // Array vazio para registrar horas trabalhadas
     };
-    
-    funcionarios.push(funcionario); // Adiciona o funcionário ao array de funcionários
+    funcionarios.push(funcionario);
 }
-
-// Teste: Adicionando alguns funcionários ao array
-adicionarFuncionario(1, "Alice", "Desenvolvedora", 50);
-adicionarFuncionario(2, "Bruno", "Designer", 40);
-adicionarFuncionario(3, "Carla", "Gerente de Projeto", 60);
-adicionarFuncionario(4, "Alexandro", "UX", 20);
-adicionarFuncionario(5, "Myla", "Teste", 30);
-
-
-console.log("======================================="); // Exibe um separador no console
-console.log("[M2S01] Ex 3 - Registro de Horas Trabalhadas");
-console.log("=======================================");
-
-// [M2S01] Ex 3 - Registro de Horas Trabalhadas
 
 // Função para registrar horas trabalhadas
 function registrarHoras(id, horas) {
-    // Localiza o funcionário pelo id
     const funcionario = funcionarios.find(func => func.id === id);
-    
-    // Verifica se o funcionário existe
     if (funcionario) {
-        funcionario.horasTrabalhadas.push(horas); // Adiciona as horas ao array
+        funcionario.horasTrabalhadas.push(horas);
     } else {
         console.log(`Funcionário com ID ${id} não encontrado.`);
     }
 }
 
-// Teste: Registrando horas trabalhadas para alguns funcionários
-registrarHoras(1, 8);  // id 1 trabalhou 8 horas
-registrarHoras(2, 6);  // id 2 trabalhou 6 horas
-registrarHoras(1, 5);  // id 1 trabalhou mais 5 horas
-registrarHoras(3, 7);  // id 3  trabalhou 7 horas
-registrarHoras(4, 7);  // id 4  trabalhou 7 horas
-registrarHoras(5, 3);  // id 5 trabalhou 6 horas
-registrarHoras(1, 3);  // id 1 trabalhou 6 horas
-registrarHoras(2, 6);  // id 2 trabalhou 6 horas
-
-// Exibindo o array de funcionários no console
-console.log(funcionarios);
-
-console.log("======================================="); // Exibe um separador no console
-console.log("[M2S01] Ex 4 - Cálculo de Salário Mensal");
-console.log("=======================================");
-
-// Função para calcular o salário mensal de um funcionário
-function calcularSalarioMensal(id) {
-    // Localiza o funcionário pelo id
-    const funcionario = funcionarios.find(func => func.id === id);
-    
-    // Verifica se o funcionário existe
-    if (funcionario) {
-        // Soma as horas trabalhadas
-        const totalHoras = funcionario.horasTrabalhadas.reduce((total, horas) => total + horas, 0);
-        // Calcula o salário mensal
-        const salario = totalHoras * funcionario.taxaHoraria;
-        return salario;
-    } else {
-        console.log(`Funcionário com ID ${id} não encontrado.`);
-        return null; // Retorna null caso o funcionário não seja encontrado
-    }
-}
-
-// Teste: Calculando o salário mensal de alguns funcionários
-console.log(`Salário de Alice: R$ ${calcularSalarioMensal(1)}`); // Funcionário com id 1
-console.log(`Salário de Bruno: R$ ${calcularSalarioMensal(2)}`); // Funcionário com id 2
-console.log(`Salário de Carla: R$ ${calcularSalarioMensal(3)}`); // Funcionário com id 3
-console.log(`Salário de Alexandro: R$ ${calcularSalarioMensal(4)}`); // Funcionário com id 4
-console.log(`Salário de Myla: R$ ${calcularSalarioMensal(5)}`); // Funcionário com id 5
-
-console.log("======================================="); // Exibe um separador no console
-console.log("[M2S01] Ex 5 - Cálculo Desconto INSS");
-console.log("=======================================");
-
-// Função para calcular o valor do INSS com base no salário bruto
+// Função para calcular o valor do INSS
 function calcularInss(salarioBruto) {
     let inss = 0;
-
-    // Faixas de cálculo
     if (salarioBruto <= 1412.00) {
         inss = salarioBruto * 0.075;
     } else if (salarioBruto <= 2666.68) {
@@ -105,70 +37,75 @@ function calcularInss(salarioBruto) {
     } else if (salarioBruto <= 7786.02) {
         inss = (1412.00 * 0.075) + ((2666.68 - 1412.00) * 0.09) + ((4000.03 - 2666.68) * 0.12) + ((salarioBruto - 4000.03) * 0.14);
     } else {
-        // Teto do INSS
-        inss = 908.85;
+        inss = 908.85; // Teto do INSS
     }
-
-    return inss.toFixed(2); // Retorna o valor formatado com 2 casas decimais
+    return inss.toFixed(2);
 }
-
-// Função para calcular o salário líquido (bruto - INSS)
-function calcularSalarioLiquido(salarioBruto) {
-    const inss = calcularInss(salarioBruto);
-    return (salarioBruto - inss).toFixed(2);
-}
-
-// Teste: Calculando o INSS e o salário líquido para alguns exemplos
-console.log("=======================================");
-const salarioBruto1 = 2000;
-console.log(`Salário Bruto: R$ ${salarioBruto1}`);
-console.log(`INSS: R$ ${calcularInss(salarioBruto1)}`);
-console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto1)}`);
-console.log("=======================================");
-
-const salarioBruto2 = 5000;
-console.log(`Salário Bruto: R$ ${salarioBruto2}`);
-console.log(`INSS: R$ ${calcularInss(salarioBruto2)}`);
-console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto2)}`);
-console.log("=======================================");
-
-const salarioBruto3 = 8000;
-console.log(`Salário Bruto: R$ ${salarioBruto3}`);
-console.log(`INSS: R$ ${calcularInss(salarioBruto3)}`);
-console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto3)}`);
-
-console.log("======================================="); // Exibe um separador no console
-console.log("[M2S01] Ex 6 - Relatório de Pagamento");
-console.log("=======================================");
 
 // Função para gerar o relatório de pagamento
 function gerarRelatorioPagamento() {
-    console.log("===== RELATÓRIO DE PAGAMENTO =====\n");
-
-    // Percorre o array de funcionários
+    console.log("===== RELATÓRIO DE PAGAMENTO =====");
     funcionarios.forEach(funcionario => {
-        // Soma as horas trabalhadas
         const totalHoras = funcionario.horasTrabalhadas.reduce((total, horas) => total + horas, 0);
-
-        // Calcula o salário bruto
         const salarioBruto = totalHoras * funcionario.taxaHoraria;
-
-        // Calcula o INSS
         const valorInss = calcularInss(salarioBruto);
-
-        // Calcula o salário líquido
         const salarioLiquido = salarioBruto - valorInss;
-
-        // Formata e exibe as informações do funcionário
         console.log(`Nome: ${funcionario.nome}`);
         console.log(`Cargo: ${funcionario.cargo}`);
         console.log(`Total de Horas: ${totalHoras}`);
-        console.log(`Valor do INSS: R$ ${valorInss}`);
         console.log(`Salário Bruto: R$ ${salarioBruto.toFixed(2)}`);
+        console.log(`Valor do INSS: R$ ${valorInss}`);
         console.log(`Salário Líquido: R$ ${salarioLiquido.toFixed(2)}`);
-        console.log("-----------------------------\n");
+        console.log("-----------------------------");
     });
 }
 
-// Teste: Gerar o relatório de pagamento
-gerarRelatorioPagamento();
+// Função principal para gerenciar o sistema de folha de pagamento
+function gerenciarFolhaPagamento() {
+    let continuar = true;
+
+    while (continuar) {
+        console.log("\n===== SISTEMA DE FOLHA DE PAGAMENTO =====");
+        console.log("1. Adicionar Funcionário");
+        console.log("2. Registrar Horas Trabalhadas");
+        console.log("3. Exibir Relatório de Pagamento");
+        console.log("4. Sair");
+        const escolha = readline.question("Escolha uma opcao (1-4): ");
+
+        switch (escolha) {
+            case "1":
+                console.log("=== Adicionar Funcionário ===");
+                const id = parseInt(readline.question("Digite o ID do funcionário: "));
+                const nome = readline.question("Digite o nome do funcionário: ");
+                const cargo = readline.question("Digite o cargo do funcionário: ");
+                const taxaHoraria = parseFloat(readline.question("Digite a taxa horária do funcionário: "));
+                adicionarFuncionario(id, nome, cargo, taxaHoraria);
+                console.log(`Funcionário ${nome} adicionado com sucesso.`);
+                break;
+
+            case "2":
+                console.log("=== Registrar Horas Trabalhadas ===");
+                const idHoras = parseInt(readline.question("Digite o ID do funcionário: "));
+                const horas = parseFloat(readline.question("Digite o número de horas trabalhadas: "));
+                registrarHoras(idHoras, horas);
+                console.log(`Horas registradas com sucesso para o funcionário com ID ${idHoras}.`);
+                break;
+
+            case "3":
+                console.log("=== Relatório de Pagamento ===");
+                gerarRelatorioPagamento();
+                break;
+
+            case "4":
+                console.log("Saindo do sistema de folha de pagamento...");
+                continuar = false;
+                break;
+
+            default:
+                console.log("Opção inválida. Por favor, escolha uma opção entre 1 e 4.");
+        }
+    }
+}
+
+// Inicia o sistema de folha de pagamento
+gerenciarFolhaPagamento();
