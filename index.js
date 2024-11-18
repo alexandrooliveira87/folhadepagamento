@@ -52,3 +52,29 @@ registrarHoras(2, 6);  // id 2 trabalhou 6 horas
 
 // Exibindo o array de funcionários no console
 console.log(funcionarios);
+
+
+// Função para calcular o salário mensal de um funcionário
+function calcularSalarioMensal(id) {
+    // Localiza o funcionário pelo id
+    const funcionario = funcionarios.find(func => func.id === id);
+    
+    // Verifica se o funcionário existe
+    if (funcionario) {
+        // Soma as horas trabalhadas
+        const totalHoras = funcionario.horasTrabalhadas.reduce((total, horas) => total + horas, 0);
+        // Calcula o salário mensal
+        const salario = totalHoras * funcionario.taxaHoraria;
+        return salario;
+    } else {
+        console.log(`Funcionário com ID ${id} não encontrado.`);
+        return null; // Retorna null caso o funcionário não seja encontrado
+    }
+}
+
+// Teste: Calculando o salário mensal de alguns funcionários
+console.log(`Salário de Alice: R$ ${calcularSalarioMensal(1)}`); // Funcionário com id 1
+console.log(`Salário de Bruno: R$ ${calcularSalarioMensal(2)}`); // Funcionário com id 2
+console.log(`Salário de Carla: R$ ${calcularSalarioMensal(3)}`); // Funcionário com id 3
+console.log(`Salário de Alexandro: R$ ${calcularSalarioMensal(4)}`); // Funcionário com id 4
+console.log(`Salário de Myla: R$ ${calcularSalarioMensal(5)}`); // Funcionário com id 5
