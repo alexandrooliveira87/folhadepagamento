@@ -1,4 +1,7 @@
-//[M2S01] Ex 2 - Cadastro de Funcionários
+
+console.log("======================================="); // Exibe um separador no console
+console.log("[M2S01] Ex 2 - Cadastro de Funcionários");
+console.log("=======================================");
 // Definindo o array para armazenar a lista de funcionários
 let funcionarios = [];
 
@@ -23,7 +26,9 @@ adicionarFuncionario(4, "Alexandro", "UX", 20);
 adicionarFuncionario(5, "Myla", "Teste", 30);
 
 
-
+console.log("======================================="); // Exibe um separador no console
+console.log("[M2S01] Ex 3 - Registro de Horas Trabalhadas");
+console.log("=======================================");
 
 // [M2S01] Ex 3 - Registro de Horas Trabalhadas
 
@@ -53,6 +58,9 @@ registrarHoras(2, 6);  // id 2 trabalhou 6 horas
 // Exibindo o array de funcionários no console
 console.log(funcionarios);
 
+console.log("======================================="); // Exibe um separador no console
+console.log("[M2S01] Ex 4 - Cálculo de Salário Mensal");
+console.log("=======================================");
 
 // Função para calcular o salário mensal de um funcionário
 function calcularSalarioMensal(id) {
@@ -78,3 +86,53 @@ console.log(`Salário de Bruno: R$ ${calcularSalarioMensal(2)}`); // Funcionári
 console.log(`Salário de Carla: R$ ${calcularSalarioMensal(3)}`); // Funcionário com id 3
 console.log(`Salário de Alexandro: R$ ${calcularSalarioMensal(4)}`); // Funcionário com id 4
 console.log(`Salário de Myla: R$ ${calcularSalarioMensal(5)}`); // Funcionário com id 5
+
+console.log("======================================="); // Exibe um separador no console
+console.log("[M2S01] Ex 5 - Cálculo Desconto INSS");
+console.log("=======================================");
+
+// Função para calcular o valor do INSS com base no salário bruto
+function calcularInss(salarioBruto) {
+    let inss = 0;
+
+    // Faixas de cálculo
+    if (salarioBruto <= 1412.00) {
+        inss = salarioBruto * 0.075;
+    } else if (salarioBruto <= 2666.68) {
+        inss = (1412.00 * 0.075) + ((salarioBruto - 1412.00) * 0.09);
+    } else if (salarioBruto <= 4000.03) {
+        inss = (1412.00 * 0.075) + ((2666.68 - 1412.00) * 0.09) + ((salarioBruto - 2666.68) * 0.12);
+    } else if (salarioBruto <= 7786.02) {
+        inss = (1412.00 * 0.075) + ((2666.68 - 1412.00) * 0.09) + ((4000.03 - 2666.68) * 0.12) + ((salarioBruto - 4000.03) * 0.14);
+    } else {
+        // Teto do INSS
+        inss = 908.85;
+    }
+
+    return inss.toFixed(2); // Retorna o valor formatado com 2 casas decimais
+}
+
+// Função para calcular o salário líquido (bruto - INSS)
+function calcularSalarioLiquido(salarioBruto) {
+    const inss = calcularInss(salarioBruto);
+    return (salarioBruto - inss).toFixed(2);
+}
+
+// Teste: Calculando o INSS e o salário líquido para alguns exemplos
+console.log("=======================================");
+const salarioBruto1 = 2000;
+console.log(`Salário Bruto: R$ ${salarioBruto1}`);
+console.log(`INSS: R$ ${calcularInss(salarioBruto1)}`);
+console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto1)}`);
+console.log("=======================================");
+
+const salarioBruto2 = 5000;
+console.log(`Salário Bruto: R$ ${salarioBruto2}`);
+console.log(`INSS: R$ ${calcularInss(salarioBruto2)}`);
+console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto2)}`);
+console.log("=======================================");
+
+const salarioBruto3 = 8000;
+console.log(`Salário Bruto: R$ ${salarioBruto3}`);
+console.log(`INSS: R$ ${calcularInss(salarioBruto3)}`);
+console.log(`Salário Líquido: R$ ${calcularSalarioLiquido(salarioBruto3)}`);
